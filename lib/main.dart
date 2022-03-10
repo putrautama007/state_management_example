@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:state_management_example/provider/counter_provider.dart';
 import 'package:state_management_example/ui/number_counter_page.dart';
 
 void main() {
@@ -15,7 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:const NumberCounterPage(),
+      home:ChangeNotifierProvider<CounterProvider>(
+      create: (BuildContext context) =>  CounterProvider(),
+    child: const NumberCounterPage(),)
     );
   }
 }

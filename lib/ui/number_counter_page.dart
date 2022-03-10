@@ -1,26 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:state_management_example/provider/counter_provider.dart';
 
-class NumberCounterPage extends StatefulWidget {
+class NumberCounterPage extends StatelessWidget {
   const NumberCounterPage({Key? key}) : super(key: key);
-
-  @override
-  State<NumberCounterPage> createState() => _NumberCounterPageState();
-}
-
-class _NumberCounterPageState extends State<NumberCounterPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +19,7 @@ class _NumberCounterPageState extends State<NumberCounterPage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '${context.watch<CounterProvider>().count}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
@@ -46,13 +29,15 @@ class _NumberCounterPageState extends State<NumberCounterPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: _incrementCounter,
+            onPressed: () =>
+                context.read<CounterProvider>().increaseNumberCounter(),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 8),
           FloatingActionButton(
-            onPressed: _decrementCounter,
+            onPressed: () =>
+                context.read<CounterProvider>().decreaseNumberCounter(),
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
