@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:state_management_example/bloc/number_counter_bloc.dart';
 import 'package:state_management_example/ui/number_counter_page.dart';
 
 void main() {
@@ -15,7 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:const NumberCounterPage(),
+      home: BlocProvider<NumberCounterBloc>(
+        create: (_) => NumberCounterBloc(),
+        child: const NumberCounterPage(),
+      ),
     );
   }
 }
