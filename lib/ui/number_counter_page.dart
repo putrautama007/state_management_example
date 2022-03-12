@@ -1,26 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:state_management_example/controller/number_counter_controller.dart';
 
-class NumberCounterPage extends StatefulWidget {
-  const NumberCounterPage({Key? key}) : super(key: key);
+class NumberCounterPage extends StatelessWidget {
+  NumberCounterPage({Key? key}) : super(key: key);
 
-  @override
-  State<NumberCounterPage> createState() => _NumberCounterPageState();
-}
-
-class _NumberCounterPageState extends State<NumberCounterPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
+  final NumberCounterController _numberCounterController =
+      Get.put(NumberCounterController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +21,10 @@ class _NumberCounterPageState extends State<NumberCounterPage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Obx(() => Text(
+                  '${_numberCounterController.count}',
+                  style: Theme.of(context).textTheme.headline4,
+                )),
           ],
         ),
       ),
@@ -46,13 +32,13 @@ class _NumberCounterPageState extends State<NumberCounterPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: _incrementCounter,
+            onPressed: () => _numberCounterController.increaseNumberCounter(),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 8),
           FloatingActionButton(
-            onPressed: _decrementCounter,
+            onPressed: () => _numberCounterController.decreaseNumberCounter(),
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
